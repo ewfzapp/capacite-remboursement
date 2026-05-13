@@ -1,13 +1,141 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head><meta charset="UTF-8"><title>Capacité de Remboursement - Service Express</title></head>
-<body style="background:#020617; color:#fff; font-family:sans-serif; text-align:center; padding:50px;">
-  <a href="https://service-express.org" style="color:#94a3b8; text-decoration:none;">← Retour au portail</a>
-  <h1>🏦 Capacité de <span>Remboursement</span></h1>
-  <div style="background:rgba(255,255,255,0.05); padding:20px; border-radius:20px; max-width:400px; margin:20px auto;">
-    <label>Capital emprunté (€)</label><br>
-    <input type="number" id="capital" value="200000" oninput="calc()" style="padding:10px; width:100%; border-radius:10px; border:none; margin-top:10px;"><br><br>
-    <div id="res" style="font-size:24px; color:#34d399;">— € / mois</div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculateur Capacité de Remboursement 2026 – Mensualité de Prêt | Service Express</title>
+  <meta name="description" content="Calculez votre mensualité de remboursement selon le capital emprunté, le taux et la durée. Simulation gratuite et instantanée.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://capacite-remboursement.service-express.org/">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1805732481707409" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#04050f;--surface:rgba(255,255,255,0.05);--border:rgba(255,255,255,0.09);--purple:#a78bfa;--purple-dim:#818cf8;--accent:#7c3aed;--text:#e8eaf6;--muted:#7c85a8;--green:#34d399;--amber:#fbbf24;--red:#f87171;--blue:#60a5fa;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:0 16px 60px;}
+    body::before{content:'';position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 55% 45% at 20% 20%,rgba(99,60,180,.15) 0%,transparent 70%),radial-gradient(ellipse 45% 55% at 80% 80%,rgba(30,100,200,.08) 0%,transparent 70%);pointer-events:none;}
+    .wrap{position:relative;z-index:1;max-width:680px;margin:0 auto;}
+    nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0 24px;border-bottom:1px solid var(--border);margin-bottom:36px;}
+    .nav-brand{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--purple);text-decoration:none;}
+    .nav-back{font-size:13px;color:var(--muted);text-decoration:none;}
+    .nav-back:hover{color:var(--purple);}
+    .hero{text-align:center;margin-bottom:32px;}
+    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(26px,5vw,40px);font-weight:800;margin-bottom:8px;}
+    .hero h1 span{color:var(--purple);}
+    .hero p{font-size:15px;color:var(--muted);}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px;margin-bottom:20px;}
+    .card-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--purple);margin-bottom:20px;}
+    .field{margin-bottom:20px;}
+    .field label{display:block;font-size:13px;color:var(--muted);margin-bottom:8px;font-weight:500;}
+    input[type=number],select{width:100%;padding:12px 16px;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:15px;outline:none;font-family:'DM Sans',sans-serif;transition:border-color .2s;}
+    input[type=number]:focus,select:focus{border-color:var(--purple);}
+    select option{background:#1a1a2e;}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    .result-box{background:linear-gradient(135deg,rgba(124,58,237,.25),rgba(109,40,217,.15));border:1px solid rgba(167,139,250,.3);border-radius:20px;padding:32px;text-align:center;margin-bottom:20px;}
+    .result-label{font-size:13px;color:var(--muted);margin-bottom:8px;}
+    .result-val{font-family:'Syne',sans-serif;font-size:clamp(44px,10vw,64px);font-weight:800;color:var(--purple);line-height:1;}
+    .result-sub{font-size:13px;color:var(--muted);margin-top:8px;}
+    .details-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:20px;}
+    .detail-item{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;}
+    .detail-item .d-label{font-size:11px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;}
+    .detail-item .d-value{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--text);}
+    .info-box{background:rgba(96,165,250,.08);border-left:3px solid var(--blue);border-radius:0 12px 12px 0;padding:14px 16px;margin-bottom:20px;font-size:13px;color:var(--muted);line-height:1.7;}
+    .info-box strong{color:var(--text);}
+    .seo{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px;margin-top:8px;}
+    .seo h2{font-family:'Syne',sans-serif;font-size:18px;color:var(--purple);margin-bottom:12px;}
+    details{border-bottom:1px solid var(--border);padding:12px 0;}
+    details:last-child{border-bottom:none;}
+    summary{cursor:pointer;font-size:14px;font-weight:500;color:var(--text);list-style:none;display:flex;justify-content:space-between;align-items:center;}
+    summary::after{content:'▾';font-size:12px;color:var(--muted);}
+    details[open] summary::after{content:'▴';}
+    details p{font-size:13px;color:var(--muted);line-height:1.7;margin-top:10px;}
+    .ad-placeholder{background:rgba(255,255,255,0.05);border:1px dashed rgba(255,255,255,0.1);border-radius:12px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:0.7rem;text-transform:uppercase;min-height:90px;}
+    footer{text-align:center;margin-top:48px;font-size:12px;color:var(--muted);}
+    footer a{color:var(--purple-dim);text-decoration:none;}
+    footer a:hover{text-decoration:underline;}
+    @media(max-width:480px){.row{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <a class="nav-brand" href="https://service-express.org">⚡ Service Express</a>
+    <a class="nav-back" href="https://service-express.org">← Retour au portail</a>
+  </nav>
+  <div class="hero">
+    <h1>🏦 Capacité de <span>Remboursement</span></h1>
+    <p>Calculez votre mensualité selon le capital, le taux et la durée</p>
   </div>
-  <script>function calc(){ let c=document.getElementById('capital').value; document.getElementById('res').textContent = Math.round(c*0.0055) + ' €/mois (est.)'; }</script>
-</body></html>
+  <div class="ad-placeholder">Publicité AdSense</div>
+  <div class="card">
+    <div class="card-title">📋 Paramètres du prêt</div>
+    <div class="field">
+      <label>Capital emprunté (€)</label>
+      <input type="number" id="capital" value="200000" min="0" step="1000" oninput="calculate()">
+    </div>
+    <div class="row">
+      <div class="field">
+        <label>Taux d'intérêt annuel (%)</label>
+        <input type="number" id="taux" value="3.5" min="0" max="20" step="0.1" oninput="calculate()">
+      </div>
+      <div class="field">
+        <label>Durée du prêt</label>
+        <select id="duree" onchange="calculate()">
+          <option value="10">10 ans</option>
+          <option value="15">15 ans</option>
+          <option value="20" selected>20 ans</option>
+          <option value="25">25 ans</option>
+          <option value="30">30 ans</option>
+        </select>
+      </div>
+    </div>
+    <div class="field" style="margin-bottom:0">
+      <label>Assurance mensuelle (€) <span style="color:var(--muted);font-weight:400">— optionnel</span></label>
+      <input type="number" id="assurance" value="0" min="0" step="1" oninput="calculate()">
+    </div>
+  </div>
+  <div class="result-box">
+    <div class="result-label">Mensualité estimée (hors assurance)</div>
+    <div class="result-val" id="mensualite">—</div>
+    <div class="result-sub" id="mensualite-assurance"></div>
+    <div class="details-grid">
+      <div class="detail-item"><div class="d-label">Coût total</div><div class="d-value" id="cout-total">—</div></div>
+      <div class="detail-item"><div class="d-label">Total intérêts</div><div class="d-value" id="total-interets">—</div></div>
+      <div class="detail-item"><div class="d-label">Capital</div><div class="d-value" id="capital-rembourse">—</div></div>
+      <div class="detail-item"><div class="d-label">Mensualités</div><div class="d-value" id="nb-mensualites">—</div></div>
+    </div>
+  </div>
+  <div class="info-box">💡 Le taux d'endettement recommandé est de <strong>35% maximum</strong> de vos revenus nets. Divisez votre mensualité par vos revenus pour vérifier votre éligibilité.</div>
+  <div class="seo">
+    <h2>FAQ — Remboursement de crédit</h2>
+    <details><summary>Comment est calculée la mensualité ?</summary><p>La mensualité suit la formule d'amortissement bancaire : M = C × (t/12) / (1 − (1 + t/12)^−n), où C est le capital, t le taux annuel et n le nombre de mois. Chaque mois, la part d'intérêts diminue et la part de capital augmente.</p></details>
+    <details><summary>Quelle durée choisir ?</summary><p>Une durée longue réduit la mensualité mais augmente le coût total des intérêts. La durée optimale dépend de votre capacité de remboursement mensuelle et de votre projet de vie.</p></details>
+    <details><summary>L'assurance emprunteur est-elle obligatoire ?</summary><p>Elle est techniquement facultative mais pratiquement exigée par toutes les banques. Son coût varie entre 0.1% et 0.5% du capital par an. Depuis la loi Lemoine (2022), vous pouvez changer d'assurance à tout moment.</p></details>
+    <details><summary>Peut-on rembourser par anticipation ?</summary><p>Oui, mais des indemnités (IRA) peuvent s'appliquer, plafonnées à 3% du capital restant dû ou 6 mois d'intérêts. Ces frais sont souvent négociables à la signature du contrat.</p></details>
+  </div>
+  <footer>
+    <p>© 2026 Service Express &nbsp;·&nbsp; <a href="privacy.html">Confidentialité</a> &nbsp;·&nbsp; <a href="legal.html">Mentions Légales</a></p>
+    <p style="margin-top:6px">Simulation indicative. Consultez votre banque pour une offre personnalisée.</p>
+  </footer>
+</div>
+<script>
+  function fmt(n){return new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);}
+  function calculate(){
+    const C=parseFloat(document.getElementById('capital').value)||0;
+    const ta=parseFloat(document.getElementById('taux').value)||0;
+    const d=parseInt(document.getElementById('duree').value)||20;
+    const ass=parseFloat(document.getElementById('assurance').value)||0;
+    const n=d*12,t=ta/100/12;
+    let m=t===0?C/n:C*t/(1-Math.pow(1+t,-n));
+    document.getElementById('mensualite').textContent=fmt(m);
+    document.getElementById('mensualite-assurance').textContent=ass>0?`Avec assurance : ${fmt(m+ass)} / mois`:'';
+    document.getElementById('cout-total').textContent=fmt(m*n);
+    document.getElementById('total-interets').textContent=fmt(m*n-C);
+    document.getElementById('capital-rembourse').textContent=fmt(C);
+    document.getElementById('nb-mensualites').textContent=n+' mois';
+  }
+  calculate();
+</script>
+</body>
+</html>
